@@ -20,8 +20,8 @@ model Business {
 
 model User {
   id         String     @id @default(uuid())
-  username   String
-  email      String
+  username   String?    @unique
+  email      String     @unique
   password   String
   businesses Business[]
 }
