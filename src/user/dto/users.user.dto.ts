@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class LoginUserDto {
-  @ApiProperty()
+  @ApiProperty({ default: 'dev@duplo.com' })
   @IsNotEmpty()
   readonly email: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'test1234' })
   @IsNotEmpty()
   readonly password: string;
 }
@@ -32,3 +32,10 @@ export class UpdatePasswordDto {
   @ApiProperty()
   old_password: string;
 }
+
+export const LoginOKResponse = {
+  id: 'ff5262d5-da30-4598-a868-******',
+  username: 'username',
+  email: 'email@example.com',
+  accessToken: 'eyJh***.eyJ1c2Vy****.yeeffey***',
+};

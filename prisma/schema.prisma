@@ -13,7 +13,8 @@ datasource db {
 model Business {
   id              String           @id @default(uuid())
   name            String
-  owners          User[]
+  owner           User             @relation(fields: [ownerId], references: [id])
+  ownerId         String
   departmentHeads DepartmentHead[]
   orders          Order[]
 }
@@ -48,7 +49,7 @@ model Order {
 
 model Transaction {
   id         String   @id @default(uuid())
-  businessId Int
+  businessId String
   amount     Int
   date       DateTime
   status     String
