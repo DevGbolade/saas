@@ -1,0 +1,46 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:15.1
+    restart: always
+    networks:
+      - postgres
+    volumes:
+      - /Users/gbolade/Documents:/data/postgres
+    env_file:
+      - docker.env
+    container_name: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:6.18
+    restart: always
+
+    networks:
+      - postgres
+    ports:
+      - '8080:80'
+    volumes:
+      - /Users/gbolade/Documents:/root/.pgadmin
+    env_file:
+      - docker.env
+    container_name: pgadmin4
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    ports:
+      - '8094:8094'
+    container_name: duplo-api
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+    volumes:
+      - ./src:/app/src
+
+networks:
+  postgres:
+    driver: bridge
