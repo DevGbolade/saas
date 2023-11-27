@@ -39,26 +39,21 @@ export class BusinessService {
   }
 
   async getCreditScore(id: string) {
-    const business = await this.prismaService.business.findUnique({
-      where: { id },
-    });
-    const transactions = await this.prismaService.transaction.findMany({
-      where: { businessId: business.id },
-    });
+    const businessOrders = await this.getBusinessOrders(id);
 
-    if (transactions.length === 0) {
+    if (businessOrders.length === 0) {
       // Return a default score or handle this case according to your business logic
       return 0;
     }
 
-    const totalAmount = transactions.reduce(
+    const totalAmount = businessOrders.reduce(
       (sum, transaction) => sum + transaction.amount,
       0,
     );
-    const numberOfTransactions = transactions.length;
+    const numberOfbusiness = businessOrders.length;
 
     // Calculate the credit score using the given formula
-    const creditScore = totalAmount / (numberOfTransactions * 100);
+    const creditScore = totalAmount / (numberOfbusiness * 100);
 
     return { creditScore };
   }

@@ -1,73 +1,124 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Duplo Platform API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<!-- ![Duplo Logo](./duplo-logo.png) -->
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Usage](#usage)
+  - [API Endpoints](#api-endpoints)
+  - [Credit Score Calculation](#credit-score-calculation)
+  - [Order Details](#order-details)
+- [Deployment](#deployment)
+  - [Docker](#docker)
+- [Contributing](#contributing)
+- [License](#license)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Introduction
 
-## Installation
+Welcome to the Duplo Platform Backend! This application serves as the backend for Duplo, a platform that facilitates business registrations, order processing, and credit score calculation for businesses.
+
+## Features
+
+- Business registration and user management.
+- Order processing and storage in PostgreSQL.
+- Transaction logging in MongoDB.
+- Credit score calculation based on transaction data.
+- Integration with a government tax authority API for order logging.
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- [NestJs](https://nestjs.com)
+- [Docker](https://www.docker.com/)
+
+API Swagger Documentation can be found here:
+
+- [API Docs](http://localhost:8094/api/v1/)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/DevGbolade/duplo-bussiness-case
+   cd duplo-backend
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+### Configuration
+
+Copy the `.env.example` file to `.env` and update it with your configuration:
 
 ```bash
-$ npm install
+cp .env.example .env
 ```
 
-## Running the app
+## Usage
+
+### API Endpoints
+
+The Duplo Platform Backend provides the following API endpoints:
+
+- **POST /api/business/register:** Register a new business.
+- **POST /api/business/:businessId/department-head/:departmentHeadId/order:** Place an order for a department.
+- **GET /api/business/:businessId/credit-score:** Get the credit score for a business.
+- **GET /api/business/:businessId/orders/metrics:** Get order metrics for a business.
+
+### Credit Score Calculation
+
+The credit score for a business is calculated using the formula:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+(Total transactions or order amount ) / ( Number of transactions * 100)
 ```
 
-## Test
+### Order Details
 
-```bash
-# unit tests
-$ npm run test
+- Total number of orders.
+- Total amount of orders.
+- Total number of orders today.
+- Total amount of orders today.
 
-# e2e tests
-$ npm run test:e2e
+## Deployment
 
-# test coverage
-$ npm run test:cov
-```
+### Docker
 
-## Support
+To deploy the backend solution as a Docker image, follow these steps:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. **Build the Docker image:**
 
-## Stay in touch
+   ```bash
+   docker build -t duplo-api .
+   ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. **Run the Docker container:**
+
+   ```bash
+   docker run -p 8094:8094 -d duplo-api
+   ```
+
+The Duplo Platform Backend will be accessible at [http://localhost:3000](http://localhost:3000).
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to the project, please follow our [contribution guidelines](CONTRIBUTING.md).
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
