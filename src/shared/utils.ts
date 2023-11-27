@@ -21,3 +21,5 @@ export function hashPassword(password: string): string {
   }
   return hash;
 }
+
+export const platform_code = '002';

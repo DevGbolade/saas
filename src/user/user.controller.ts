@@ -38,7 +38,8 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get(':id')
   @ApiOperation({ summary: 'Gets a user account' })
   async findOne(@Param('id') id: string) {
@@ -51,7 +52,8 @@ export class UserController {
     }
     return user;
   }
-
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Delete(':id')
   @ApiOperation({ summary: 'Deletes a user account' })
   remove(@Param('id') id: string) {

@@ -26,10 +26,6 @@ export class UserService {
     });
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
-
   remove(id: string) {
     return this.prismaService.user.delete({
       where: { id },

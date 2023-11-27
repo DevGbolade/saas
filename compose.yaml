@@ -6,10 +6,11 @@ services:
     networks:
       - postgres
     volumes:
-      - /Users/gbolade/Documents:/data/postgres
+      - pg-db-data:/data/postgres
     env_file:
       - docker.env
     container_name: postgres
+    command: bash -c "/app/scripts/create-volume.sh && docker-entrypoint.sh postgres"
 
   pgadmin:
     image: dpage/pgadmin4:6.18
@@ -20,7 +21,7 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - /Users/gbolade/Documents:/root/.pgadmin
+      - pg-db-data:/root/.pgadmin
     env_file:
       - docker.env
     container_name: pgadmin4
@@ -44,3 +45,7 @@ services:
 networks:
   postgres:
     driver: bridge
+volumes:
+  pg-db-data:
+    name: pg-db-data
+    external: true
