@@ -44,7 +44,7 @@ Make sure you have the following installed on your system:
 
 API Swagger Documentation can be found here:
 
-- [API Docs](http://localhost:8094/api/v1/)
+- [API Docs](http://localhost:8094)
 
 ### Installation
 

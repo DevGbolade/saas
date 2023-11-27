@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   CreateBusinessDto,
   CreateOrderByDeptHeadDto,
@@ -35,11 +35,20 @@ export class BusinessService {
     return business;
   }
   async getBusinessOrders(id: string) {
-    return this.prismaService.business.findUnique({ where: { id } }).orders();
+    const orders = await this.prismaService.business
+      .findUnique({ where: { id } })
+      .orders();
+    if (!orders) {
+      throw new NotFoundException(`No orders found for this businessId: ${id}`);
+    }
+    return orders;
   }
 
   async getCreditScore(id: string) {
     const businessOrders = await this.getBusinessOrders(id);
+    if (!businessOrders) {
+      throw new NotFoundException(`No data found for this businessId: ${id}`);
+    }
 
     if (businessOrders.length === 0) {
       // Return a default score or handle this case according to your business logic
@@ -133,6 +142,9 @@ export class BusinessService {
   async getOrderMetrics(id: string) {
     // Implement logic to retrieve various order-related metrics
     const businessOrders = await this.getBusinessOrders(id);
+    if (!businessOrders) {
+      throw new NotFoundException(`No data found for this businessId: ${id}`);
+    }
     const today = new Date();
     const startOfToday = startOfDay(today);
     const endOfToday = endOfDay(today);
