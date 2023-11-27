@@ -52,7 +52,7 @@ API Swagger Documentation can be found here:
 
    ```bash
    git clone https://github.com/DevGbolade/duplo-bussiness-case
-   cd duplo-backend
+   cd duplo-bussiness-case
    ```
 
 2. **Install dependencies:**
@@ -113,7 +113,7 @@ To deploy the backend solution as a Docker image, follow these steps:
    docker run -p 8094:8094 -d duplo-api
    ```
 
-The Duplo Platform Backend will be accessible at [http://localhost:3000](http://localhost:3000).
+The Duplo Platform Backend will be accessible at [http://localhost:8094](http://localhost:8094).
 
 ## Contributing
 
