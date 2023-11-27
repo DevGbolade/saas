@@ -27,6 +27,6 @@ async function bootstrap() {
   SwaggerModule.setup('/api/v1', app, document);
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
-  await app.listen(8094);
+  await app.listen(process.env.PORT || 8094);
 }
 bootstrap();

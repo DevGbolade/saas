@@ -15,6 +15,7 @@ import * as Joi from 'joi';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: ['.env', 'docker.env'],
       ignoreEnvVars: true,
       validationSchema: Joi.object({
         PORT: Joi.number().default(8094).required(),
