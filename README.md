@@ -113,7 +113,7 @@ To deploy the backend solution as a Docker image, follow these steps:
    docker run -p 8094:8094 -d duplo-api
    ```
 
-The Duplo Platform Backend will be accessible at [http://localhost:8094](http://localhost:8094).
+The Duplo Platform Backend will be accessible at [http://localhost:8094/api/v1](http://localhost:8094/api/v1)
 
 ## Contributing
 
