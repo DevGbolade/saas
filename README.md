@@ -69,6 +69,23 @@ Copy the `.env.example` file to `.env` and update it with your configuration:
 cp .env.example .env
 ```
 
+Run `npx prisma generate` in your terminal
+
+```bash
+npx prisma generate
+```
+
+### Then
+
+run npx `prisma migrate dev` with a migration name in your terminal:
+
+Replace your_migration_name with a meaningful name for your migration.
+
+```bash
+npx prisma migrate dev --name your_migration_name
+
+```
+
 ## Usage
 
 ### API Endpoints
@@ -101,13 +118,19 @@ The credit score for a business is calculated using the formula:
 
 To deploy the backend solution as a Docker image, follow these steps:
 
-1. **Build the Docker image:**
+1. **Create the pg-db-data volume:**
+
+   ```bash
+   docker volume create pg-db-data
+   ```
+
+2. **Build the Docker image:**
 
    ```bash
    docker build -t duplo-api .
    ```
 
-2. **Run the Docker container:**
+3. **Run the Docker container:**
 
    ```bash
    docker run -p 8094:8094 -d duplo-api
